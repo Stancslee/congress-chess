@@ -15,6 +15,18 @@ class Board:
         # Initialize empty game board
         board = [ (['-'] * self.cols) for row in range(self.rows) ]
 
+        # Column Mapping for Move Parsing                                                        
+        col_map = {
+            'A': 0,
+            'B': 1,
+            'C': 2,
+            'D': 3,
+            'E': 4,
+            'F': 5,
+            'G': 6,
+            'H': 7
+        }
+
         # Initialize NPC Pieces
         board[0][0] = 'H'
         board[0][1] = 'H'
@@ -43,23 +55,15 @@ class Board:
         print('  ---------------')
         print('  A B C D E F G H')
 
-class MoveGenerator:
-    def __init__(self):
-        self.legalMoves = self.generateMoves()
-
     def generateMoves(self):
         legalMoves = []
 
-class King:
-    def __init__(self):
+    def make_move(cur_move, legal_moves):
+        return
 
-class Horse:
-    def __init__(self):
+    def king_gen_moves(pos):
+        return
 
-class Bishop:
-    def __init__(self):
 
-class Pawn:
-    def __init__(self):
 
 
