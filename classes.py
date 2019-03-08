@@ -37,6 +37,29 @@ class Board:
         return board
 
     def printBoard(self):
+
         for x in range(self.rows):
-            print(' '.join(self.board[x]))
+            print( ('%s ' % str(self.rows - x)) + ' '.join(self.board[x]) )
+        print('  ---------------')
+        print('  A B C D E F G H')
+
+class MoveGenerator:
+    def __init__(self):
+        self.legalMoves = self.generateMoves()
+
+    def generateMoves(self):
+        legalMoves = []
+
+class King:
+    def __init__(self):
+
+class Horse:
+    def __init__(self):
+
+class Bishop:
+    def __init__(self):
+
+class Pawn:
+    def __init__(self):
+
 
