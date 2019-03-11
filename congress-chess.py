@@ -17,17 +17,6 @@ def main():
     move = ''
     gameOver = False
 
-    col_map = {
-        'A': 0,
-        'B': 1,
-        'C': 2,
-        'D': 3,
-        'E': 4,
-        'F': 5,
-        'G': 6,
-        'H': 7
-    }
-
     while(not gameOver):
         while(choice):
             turnChoice = input("Please select your turn (1 or 2): ")
@@ -47,6 +36,7 @@ def main():
             #player makes move
             move = input('Enter your move: ')
             print('Your move: %s\n' % move)
+            board.make_move(move)
             playerTurn = False
         else:
             # NPC Move Generator (returns list of legal moves)
@@ -61,6 +51,37 @@ def main():
         if(move == 'stop'):
             gameOver = True
 
+"""
+def parse_move(move, board):
+    col_map = {
+        'A': 0,
+        'B': 1,
+        'C': 2,
+        'D': 3,
+        'E': 4,
+        'F': 5,
+        'G': 6,
+        'H': 7
+    }
+    char = []
+    for c in move:
+        char.append(c)
+    src = (board.rows - int(char[1]), col_map.get(char[0]))
+    dst = (board.rows - int(char[3]), col_map.get(char[2]))
+    print(src, dst)
+    return [src, dst]
+
+def make_move(cur_move, board):
+    move = parse_move(cur_move, board)
+    print(move[1][0])
+    print(move[1][1])
+    # Save src & dst values
+    src = board[ move[0][0] ][ move[0][1] ]
+    dst = board[ move[1][0] ][ move[1][1] ]
+    # Make move
+    board[ move[1][0] ][ move[1][1] ] = src
+    board[ move[0][0] ][ move[0][1] ] = '-'
+"""
 
 if __name__ == "__main__":
     main()

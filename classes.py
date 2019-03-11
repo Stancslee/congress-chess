@@ -15,18 +15,6 @@ class Board:
         # Initialize empty game board
         board = [ (['-'] * self.cols) for row in range(self.rows) ]
 
-        # Column Mapping for Move Parsing                                                        
-        col_map = {
-            'A': 0,
-            'B': 1,
-            'C': 2,
-            'D': 3,
-            'E': 4,
-            'F': 5,
-            'G': 6,
-            'H': 7
-        }
-
         # Initialize NPC Pieces
         board[0][0] = 'H'
         board[0][1] = 'H'
@@ -49,7 +37,6 @@ class Board:
         return board
 
     def printBoard(self):
-
         for x in range(self.rows):
             print( ('%s ' % str(self.rows - x)) + ' '.join(self.board[x]) )
         print('  ---------------')
@@ -58,8 +45,35 @@ class Board:
     def generateMoves(self):
         legalMoves = []
 
-    def make_move(cur_move, legal_moves):
-        return
+    def parse_move(move):
+        col_map = {
+            'A': 0,
+            'B': 1,
+            'C': 2,
+            'D': 3,
+            'E': 4,
+            'F': 5,
+            'G': 6,
+            'H': 7
+        }
+        char = []
+        for c in move:
+            char.append(c)
+        src = (board.rows - int(char[1]), col_map.get(char[0]))
+        dst = (board.rows - int(char[3]), col_map.get(char[2]))
+        print(src, dst)
+        return [src, dst]
+
+    def make_move(cur_move):
+        move = parse_move(cur_move)
+        print(move[1][0])
+        print(move[1][1])
+        # Save src & dst values
+        src = board[ move[0][0] ][ move[0][1] ]
+        dst = board[ move[1][0] ][ move[1][1] ]
+        # Make move
+        board[ move[1][0] ][ move[1][1] ] = src
+        board[ move[0][0] ][ move[0][1] ] = '-'
 
     def king_gen_moves(pos):
         return
