@@ -84,12 +84,30 @@ class Board:
 
     def king_gen_moves(self, pos):
         x = pos[1]
+
         # Player Left King
         if( (x > 0 and x <= 3) and ( (self.get_board()[5][x-1] == '-') 
             or (self.get_board()[5][x-1] is in board.get_npc_pieces() ):
             # Return dst
+            return (5, x-1)
 
-        return
+        # Player Right King
+        if( (x >= 4 and x < 7) and ( (self.get_board()[5][x+1] == '-') 
+            or (self.get_board()[5][x+1] is in board.get_npc_pieces() ):
+            # Return dst
+            return (5, x+1)
+
+        # NPC Left King
+        if( (x > 0 and x <= 3) and ( (self.get_board()[0][x-1] == '-') 
+            or (self.get_board()[0][x-1] is in board.get_npc_pieces() ):
+            # Return dst
+            return (0, x-1)
+
+        # NPC Right King
+        if( (x >= 4 and x < 7) and ( (self.get_board()[0][x+1] == '-') 
+            or (self.get_board()[0][x+1] is in board.get_npc_pieces() ):
+            # Return dst
+            return (0, x+1)
 
     def pawn_gen_moves():
         return
