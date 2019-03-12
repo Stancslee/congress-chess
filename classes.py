@@ -76,7 +76,19 @@ class Board:
         dst = (self.rows - int(char[3]), col_map.get(char[2]))
         return [src, dst]
 
-    def king_gen_moves(pos):
+    def get_npc_pieces(self):
+        return ['H', 'K', 'B', 'P']
+
+    def get_player_pieces(self):
+        return ['h', 'k', 'b', 'p']
+
+    def king_gen_moves(self, pos):
+        x = pos[1]
+        # Player Left King
+        if( (x > 0 and x <= 3) and ( (self.get_board()[5][x-1] == '-') 
+            or (self.get_board()[5][x-1] is in board.get_npc_pieces() ):
+            # Return dst
+
         return
 
     def pawn_gen_moves():
