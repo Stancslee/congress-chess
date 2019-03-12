@@ -45,6 +45,9 @@ class Board:
     def generateMoves(self):
         legalMoves = []
 
+    def getBoard(self):
+        return self.board
+
     """
     def make_move(self, cur_move, board):
         move = self.parse_move(cur_move)

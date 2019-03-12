@@ -30,7 +30,7 @@ def main():
                 print('Your input is not an integer 1 or 2. Please try again.\n')
 
         # Call move Generator
-        print(board[0][0])
+        print(board.getBoard()[0][0])
         # Players take turns
         if(playerTurn):
             #player makes move
