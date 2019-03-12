@@ -45,7 +45,19 @@ class Board:
     def generateMoves(self):
         legalMoves = []
 
-    def parse_move(move):
+    """
+    def make_move(self, cur_move, board):
+        move = self.parse_move(cur_move)
+        print(move[1][0])
+        print(move[1][1])
+        # Save src & dst values
+        print( "src = " + board[ move[0][0] ][ move[0][1] ] )
+        print( "dst = " + board[ move[1][0] ][ move[1][1] ] )
+        # Make move
+        board[ move[1][0] ][ move[1][1] ] = src
+        board[ move[0][0] ][ move[0][1] ] = '-'
+
+    def parse_move(self, move):
         col_map = {
             'A': 0,
             'B': 1,
@@ -59,21 +71,11 @@ class Board:
         char = []
         for c in move:
             char.append(c)
-        src = (board.rows - int(char[1]), col_map.get(char[0]))
-        dst = (board.rows - int(char[3]), col_map.get(char[2]))
+        src = (self.rows - int(char[1]), col_map.get(char[0]))
+        dst = (self.rows - int(char[3]), col_map.get(char[2]))
         print(src, dst)
         return [src, dst]
-
-    def make_move(cur_move):
-        move = parse_move(cur_move)
-        print(move[1][0])
-        print(move[1][1])
-        # Save src & dst values
-        src = board[ move[0][0] ][ move[0][1] ]
-        dst = board[ move[1][0] ][ move[1][1] ]
-        # Make move
-        board[ move[1][0] ][ move[1][1] ] = src
-        board[ move[0][0] ][ move[0][1] ] = '-'
+    """
 
     def king_gen_moves(pos):
         return

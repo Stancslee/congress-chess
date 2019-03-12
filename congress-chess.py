@@ -30,13 +30,13 @@ def main():
                 print('Your input is not an integer 1 or 2. Please try again.\n')
 
         # Call move Generator
-
+        print(board[0][0])
         # Players take turns
         if(playerTurn):
             #player makes move
             move = input('Enter your move: ')
             print('Your move: %s\n' % move)
-            board.make_move(move)
+            make_move(move, board)
             playerTurn = False
         else:
             # NPC Move Generator (returns list of legal moves)
@@ -51,7 +51,17 @@ def main():
         if(move == 'stop'):
             gameOver = True
 
-"""
+def make_move(cur_move, board):
+    move = parse_move(cur_move, board)
+    print(move[1][0])
+    print(move[1][1])
+    # Save src & dst values
+    print( "src = " + board[ move[0][0] ][ move[0][1] ] )
+    print( "dst = " + board[ move[1][0] ][ move[1][1] ] )
+    # Make move
+    board[ move[1][0] ][ move[1][1] ] = src
+    board[ move[0][0] ][ move[0][1] ] = '-'
+
 def parse_move(move, board):
     col_map = {
         'A': 0,
@@ -66,22 +76,12 @@ def parse_move(move, board):
     char = []
     for c in move:
         char.append(c)
+        print(c)
     src = (board.rows - int(char[1]), col_map.get(char[0]))
     dst = (board.rows - int(char[3]), col_map.get(char[2]))
     print(src, dst)
     return [src, dst]
 
-def make_move(cur_move, board):
-    move = parse_move(cur_move, board)
-    print(move[1][0])
-    print(move[1][1])
-    # Save src & dst values
-    src = board[ move[0][0] ][ move[0][1] ]
-    dst = board[ move[1][0] ][ move[1][1] ]
-    # Make move
-    board[ move[1][0] ][ move[1][1] ] = src
-    board[ move[0][0] ][ move[0][1] ] = '-'
-"""
 
 if __name__ == "__main__":
     main()
