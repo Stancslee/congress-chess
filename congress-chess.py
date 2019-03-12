@@ -32,7 +32,11 @@ def main():
         board.print_board()
         # Players take turns
         if(player_turn):
-            #player makes move
+            # Print Legal Player Moves
+            legal_moves = board.generate_moves()
+            print(legal_moves)
+
+            # Player makes move
             move = input('Enter your move: ')
             print('Your move: %s\n' % move)
             board.make_move(move)
