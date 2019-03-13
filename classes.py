@@ -47,8 +47,14 @@ class Board:
         # Iterate through board
         for row in range(self.rows):
             for col in range(self.cols):
+                # If player piece
                 if(self.get_board()[row][col] in self.get_player_pieces()):
-                    legal_moves.append(self.get_board()[row][col])
+                    # Save src and compute dst
+                    src = (row, col)
+                    dst = piece_generate_moves(src)
+                    # Reverse parse list of tuples [src, dst]
+                    move = [src, dst]
+                    self.reverse_parse(move)
         return legal_moves
 
     def get_board(self):
@@ -65,15 +71,15 @@ class Board:
 
     def parse_move(self, move):
         col_map = {
-            'A': 0,
-            'B': 1,
-            'C': 2,
-            'D': 3,
-            'E': 4,
-            'F': 5,
-            'G': 6,
-            'H': 7
-        }
+                'A': 0,
+                'B': 1,
+                'C': 2,
+                'D': 3,
+                'E': 4,
+                'F': 5,
+                'G': 6,
+                'H': 7
+            }
         char = []
         for c in move:
             char.append(c)
@@ -81,14 +87,35 @@ class Board:
         dst = (self.rows - int(char[3]), col_map.get(char[2]))
         return [src, dst]
 
+    def reverse_parse(self, move):
+        s = ''
+        rev_col_map = {
+                    0: 'A'
+                    1: 'B'
+                    2: 'C'
+                    3: 'D'
+                    4: 'E'
+                    5: 'F'
+                    6: 'G'
+                    7: 'H'
+                }
+
     def get_npc_pieces(self):
         return ['H', 'K', 'B', 'P']
 
     def get_player_pieces(self):
         return ['h', 'k', 'b', 'p']
 
-    def king_gen_moves(self, pos):
-        x = pos[1]
+    def piece_generate_moves(self, src):
+        piece_generate_moves = {
+                    'H': horse_gen_moves(src)
+                    'K': king_gen_moves(src)
+                    'B': bishop_gen_moves(src)
+                    'P': pawn_gen_moves(src)
+                }
+
+    def king_gen_moves(self, src):
+        x = src[1]
 
         # Player Left King
         if( (x > 0 and x <= 3) and ( (self.get_board()[5][x-1] == '-') 
