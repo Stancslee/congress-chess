@@ -51,10 +51,10 @@ class Board:
                 if(self.get_board()[row][col] in self.get_player_pieces()):
                     # Save src and compute dst
                     src = (row, col)
-                    dst = piece_generate_moves(src)
+                    dst = piece_gen_moves(src)
                     # Reverse parse list of tuples [src, dst]
                     move = [src, dst]
-                    self.reverse_parse(move)
+                    legal_moves.append(self.reverse_parse(move))
         return legal_moves
 
     def get_board(self):
@@ -99,6 +99,12 @@ class Board:
                     6: 'G'
                     7: 'H'
                 }
+        # Parse move [src, dst], list of tuples
+        s.join(rev_col_map.get(move[0][1]))
+        s.join(self.rows - move[0][0])
+        s.join(rev_col_map.get(move[1][1]))
+        s.join(self.rows - move[1][0])
+        return s
 
     def get_npc_pieces(self):
         return ['H', 'K', 'B', 'P']
@@ -106,13 +112,14 @@ class Board:
     def get_player_pieces(self):
         return ['h', 'k', 'b', 'p']
 
-    def piece_generate_moves(self, src):
+    def piece_gen_moves(self, src):
         piece_generate_moves = {
                     'H': horse_gen_moves(src)
                     'K': king_gen_moves(src)
                     'B': bishop_gen_moves(src)
                     'P': pawn_gen_moves(src)
                 }
+        return piece_generate_moves
 
     def king_gen_moves(self, src):
         x = src[1]
