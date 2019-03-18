@@ -44,6 +44,12 @@ class Board:
 
     def generate_moves(self):
         legal_moves = []
+
+        """ DELETE LATER """
+        from collections import defaultdict
+        debug_legal_moves = defaultdict(list) 
+        """ DELETE LATER """
+
         piece_gen_moves = {
                     'H': self.horse_gen_moves,
                     'K': self.king_gen_moves,
@@ -58,11 +64,21 @@ class Board:
                     # Save src and compute dst
                     src = (row, col)
                     cur_piece = self.get_board()[row][col].upper()
-                    dst = piece_gen_moves[cur_piece] 
+                    dst = piece_gen_moves[cur_piece](src)
 
                     # Reverse parse list of tuples [src, dst]
                     move = [src, dst]
                     legal_moves.append(self.reverse_parse(move))
+
+                    debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
+
+        """ DELETE LATER """
+        for piece in debug_legal_moves.keys():
+            print(piece)
+            for move in debug_legal_moves[piece]:
+                print('\t' + move)
+        """ DELETE LATER """
+
         return legal_moves
 
     def get_board(self):
@@ -148,12 +164,11 @@ class Board:
             return (0, x+1)
 
     def pawn_gen_moves(self, src):
-        return
+        return [0,0]
 
     def horse_gen_moves(self, src):
-        print(src)
-        return
+        return [0,0]
 
     def bishop_gen_moves(self, src):
-        return
+        return [0,0]
 
