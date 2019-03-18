@@ -45,10 +45,10 @@ class Board:
     def generate_moves(self):
         legal_moves = []
         piece_gen_moves = {
-                    'H': self.horse_gen_moves(src),
-                    'K': self.king_gen_moves(src),
-                    'B': self.bishop_gen_moves(src),
-                    'P': self.pawn_gen_moves(src)
+                    'H': self.horse_gen_moves,
+                    'K': self.king_gen_moves,
+                    'B': self.bishop_gen_moves,
+                    'P': self.pawn_gen_moves
                 }
         # Iterate through board
         for row in range(self.rows):
@@ -57,7 +57,9 @@ class Board:
                 if(self.get_board()[row][col] in self.get_player_pieces()):
                     # Save src and compute dst
                     src = (row, col)
-                    dst = piece_gen_moves(src)
+                    curr_piece = self.get_board()[row][col].upper()
+                    dst = piece_gen_moves[curr_piece] 
+
                     # Reverse parse list of tuples [src, dst]
                     move = [src, dst]
                     legal_moves.append(self.reverse_parse(move))
@@ -145,12 +147,13 @@ class Board:
             # Return dst
             return (0, x+1)
 
-    def pawn_gen_moves():
+    def pawn_gen_moves(self, src):
         return
 
-    def horse_gen_moves():
+    def horse_gen_moves(self, src):
+        print(src)
         return
 
-    def bishop_gen_moves():
+    def bishop_gen_moves(self, src):
         return
 
