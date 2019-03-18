@@ -57,8 +57,8 @@ class Board:
                 if(self.get_board()[row][col] in self.get_player_pieces()):
                     # Save src and compute dst
                     src = (row, col)
-                    curr_piece = self.get_board()[row][col].upper()
-                    dst = piece_gen_moves[curr_piece] 
+                    cur_piece = self.get_board()[row][col].upper()
+                    dst = piece_gen_moves[cur_piece] 
 
                     # Reverse parse list of tuples [src, dst]
                     move = [src, dst]
@@ -108,10 +108,10 @@ class Board:
                     7: 'H'
                 }
         # Parse move [src, dst], list of tuples
-        s.join(rev_col_map.get(move[0][1]))
-        s.join(self.rows - move[0][0])
-        s.join(rev_col_map.get(move[1][1]))
-        s.join(self.rows - move[1][0])
+        s += rev_col_map.get(move[0][1])
+        s += str(self.rows - move[0][0])
+        s += rev_col_map.get(move[1][1])
+        s += str(self.rows - move[1][0])
         return s
 
     def get_npc_pieces(self):
