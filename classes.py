@@ -42,7 +42,7 @@ class Board:
         print('  ---------------')
         print('  A B C D E F G H')
 
-    def generate_moves(self):
+    def generate_moves(self, player_turn):
         legal_moves = []
 
         """ DELETE LATER """
@@ -60,18 +60,32 @@ class Board:
         for row in range(self.rows):
             for col in range(self.cols):
                 # If player piece
-                if(self.get_board()[row][col] in self.get_player_pieces()):
+                if(player_turn):
+                    if(self.get_board()[row][col] in self.get_player_pieces()):
                     # Save src and compute dst
-                    src = (row, col)
-                    cur_piece = self.get_board()[row][col].upper()
-                    dst = piece_gen_moves[cur_piece](src)
-                    # If a legal move exists
-                    if dst is not None: 
-                        # Reverse parse list of tuples [src, dst]
-                        move = [src, dst]
-                        legal_moves.append(self.reverse_parse(move))
-                        debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
-
+                        src = (row, col)
+                        cur_piece = self.get_board()[row][col].upper()
+                        dst = piece_gen_moves[cur_piece](src)
+                        # If a legal move exists
+                        if dst is not None: 
+                            # Reverse parse list of tuples [src, dst]
+                            move = [src, dst]
+                            legal_moves.append(self.reverse_parse(move))
+                            debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER 
+                # If computer piece
+                else:
+                    if(self.get_board()[row][col] in self.get_npc_pieces()):
+                        # Save src and compute dst
+                        src = (row, col)
+                        cur_piece = self.get_board()[row][col].upper()
+                        dst = piece_gen_moves[cur_piece](src)
+                        # If a legal move exists
+                        if dst is not None: 
+                            # Reverse parse list of tuples [src, dst]
+                            move = [src, dst]
+                            legal_moves.append(self.reverse_parse(move))
+                            debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
+               
         """ DELETE LATER """
         for piece in debug_legal_moves.keys():
             print(piece)
@@ -166,6 +180,8 @@ class Board:
         return None
 
     def pawn_gen_moves(self, src):
+        row = src[0]
+        col = src[1]
         return (0,0)
 
     def horse_gen_moves(self, src):

@@ -33,20 +33,27 @@ def main():
         # Players take turns
         if(player_turn):
             # Print Legal Player Moves
-            legal_moves = board.generate_moves()
+            legal_moves = board.generate_moves(player_turn)
             print(legal_moves)
 
             # Player makes move
             move = input('Enter your move: ')
+            while(move not in legal_moves):
+                move = input('Please enter a valid move: ')
             print('Your move: %s\n' % move)
             board.make_move(move)
             player_turn = False
         else:
             # NPC Move Generator (returns list of legal moves)
-            # legalMoves = moveGenerator()
+            legal_moves = board.generate_moves(player_turn)
+            print(legal_moves)
 
             # NPC makes move
-            print('Computer move: rand\n')
+            move = input('Enter your move: ')
+            while(move not in legal_moves):
+                move = input('Please enter a valid move: ')
+            print('Computer move: %s\n' % move)
+            board.make_move(move)
             player_turn = True
 
         # Check legality of move
