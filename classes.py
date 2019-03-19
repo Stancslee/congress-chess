@@ -65,26 +65,34 @@ class Board:
                     # Save src and compute dst
                         src = (row, col)
                         cur_piece = self.get_board()[row][col].upper()
+                        # dst = list of tuples [ (), (), () ]
                         dst = piece_gen_moves[cur_piece](src)
-                        # If a legal move exists
-                        if dst is not None: 
-                            # Reverse parse list of tuples [src, dst]
-                            move = [src, dst]
-                            legal_moves.append(self.reverse_parse(move))
-                            debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER 
+                        # If a legal move exists / dst list is not empty
+                        if dst: 
+                            # Pair src with each dst tuple
+                            for pos in dst:
+                                # Reverse parse list of tuples [src, dst]
+                                move = [src, pos]
+                                print(move)
+                                legal_moves.append(self.reverse_parse(move))
+                                debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
+
                 # If computer piece
                 else:
                     if(self.get_board()[row][col] in self.get_npc_pieces()):
                         # Save src and compute dst
                         src = (row, col)
                         cur_piece = self.get_board()[row][col].upper()
+                        # If a legal move exists / dst list is not empty
                         dst = piece_gen_moves[cur_piece](src)
                         # If a legal move exists
-                        if dst is not None: 
-                            # Reverse parse list of tuples [src, dst]
-                            move = [src, dst]
-                            legal_moves.append(self.reverse_parse(move))
-                            debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
+                        if dst:
+                            for pos in dst:
+                                # Reverse parse list of tuples [src, dst]
+                                move = [src, pos]
+                                print(move)
+                                legal_moves.append(self.reverse_parse(move))
+                                debug_legal_moves[cur_piece].append(self.reverse_parse(move)) # DELETE LATER
                
         """ DELETE LATER """
         for piece in debug_legal_moves.keys():
@@ -153,65 +161,70 @@ class Board:
     def king_gen_moves(self, src):
         row = src[0]
         col = src[1]
+        dst = []
 
         # Player Left King
         if((row==5 and col>0 and col<=3) and ((self.get_board()[5][col-1]=='-') 
             or (self.get_board()[5][col-1] in self.get_npc_pieces()) )):
             # Return dst
-            return (5, col-1)
+            dst.append( (5, col-1) )
 
         # Player Right King
         if((row==5 and col>=4 and col<7) and ((self.get_board()[5][col+1]=='-') 
             or (self.get_board()[5][col+1] in self.get_npc_pieces()) )):
             # Return dst
-            return (5, col+1)
+            dst.append( (5, col+1) )
 
         # NPC Left King
         if((row==0 and col>0 and col<=3) and ((self.get_board()[0][col-1]=='-') 
             or (self.get_board()[0][col-1] in self.get_player_pieces()) )):
             # Return dst
-            return (0, col-1)
+            dst.append( (0, col-1) )
 
         # NPC Right King
         if((row==0 and col>=4 and col<7) and ((self.get_board()[0][col+1]=='-') 
             or (self.get_board()[0][col+1] in self.get_player_pieces()) )):
             # Return dst
-            return (0, col+1)
-        return None
+            dst.append( (0, col+1) )
+        return dst
 
     def pawn_gen_moves(self, src):
         row = src[0]
         col = src[1]
+        dst = []
+
         # Player Moves
-        if(self.get_board()[row][col].islower()):
+        if(self.get_board()[row][col].islower() and row != 0):
             # Forward movement
             if(self.get_board()[row-1][col] == '-'):
-                return (row-1, col)
+                dst.append( (row-1, col) )
             # Capture Left
             if(col>0 and self.get_board()[row-1][col-1]
                     in self.get_npc_pieces()):
-                return (row-1, col-1)
+                dst.append ((row-1, col-1) )
             # Capture Right
             if(col<self.cols-1 and self.get_board()[row-1][col+1] 
                     in self.get_npc_pieces()):
-                return (row-1, col+1)
+                dst.append( (row-1, col+1) )
+        
         # NPC Moves
-        else:
+        elif(self.get_board()[row][col].isupper() and row != self.rows-1):
 	    # Forward movement
             if(self.get_board()[row+1][col] == '-'):
-                return (row+1, col)
+                dst.append( (row+1, col) )
 	    # Capture Left
             if(col>0 and self.get_board()[row+1][col-1]
 		    in self.get_player_pieces()):
-                return (row+1, col-1)
+                dst.append( (row+1, col-1) )
 	    # Capture Right
             if(col<self.cols-1 and self.get_board()[row+1][col+1]
 	    	    in self.get_player_pieces()):
-                return (row+1, col+1)
+                dst.append( (row+1, col+1) )
+        return dst
 
     def horse_gen_moves(self, src):
-        return (0,0)
+        return None
 
     def bishop_gen_moves(self, src):
-        return (0,0)
+        return None
 
