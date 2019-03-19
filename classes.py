@@ -223,7 +223,126 @@ class Board:
         return dst
 
     def horse_gen_moves(self, src):
-        return None
+        row = src[0]
+        col = src[1]
+        dst = []
+
+        # Player Moves
+        if(self.get_board()[row][col].islower()):
+            # Up-Right
+            if( (self.get_board()[row-2][col+1] == '-'
+                    or self.get_board()[row-2][col+1] in self.get_npc_pieces)
+                    and row > 1 
+                    and col < self.cols-1 ):
+                dst.append( (row-2, col+1) )
+            
+            # Up-Left
+            if( (self.get_board()[row-2][col-1] == '-'
+                    or self.get_board()[row-2][col-1] in self.get_npc_pieces)
+                    and row > 1 
+                    and col > 0 ):
+                dst.append( (row-2, col-1) )
+            
+            # Left-Up
+            if( (self.get_board()[row-1][col-2] == '-'
+                    or self.get_board()[row-1][col-2] in self.get_npc_pieces)
+                    and row > 0 
+                    and col > 1 ):
+                dst.append( (row-1, col-2) )
+            
+            # Left-Down
+                # Only on capture AND above 1/2 the board (senior)
+            if( (self.get_board()[row+1][col-2] in self.get_npc_pieces)
+                    and row < 3 
+                    and col > 1 ):
+                dst.append( (row+1, col-2) )
+
+            # Right-Up
+            if( (self.get_board()[row-1][col+2] == '-'
+                    or self.get_board()[row-1][col+2] in self.get_npc_pieces)
+                    and row > 0 
+                    and col < self.cols-2 ):
+                dst.append( (row-1, col+2) )
+
+            # Right-Down
+                # Only on capture AND above 1/2 the board (senior)
+            if( (self.get_board()[row+1][col+2] in self.get_npc_pieces)
+                    and row < 3 
+                    and col < self.cols-2 ):
+                dst.append( (row+1, col+2) )
+
+            # Down-Left
+                # Only on capture AND above 1/2 the board (senior)
+                if( (self.get_board()[row+2][col-1] in self.get_npc_pieces)
+                    and row < 3 
+                    and col > 0 ):
+                dst.append( (row+2, col-1) )
+            
+            # Down-Right
+                # Only on capture AND above 1/2 the board (senior)
+                if( (self.get_board()[row+2][col+1] in self.get_npc_pieces)
+                    and row < 3 
+                    and col < self.cols-1 ):
+                dst.append( (row+2, col+1) )
+
+        # NPC Moves
+        elif(self.get_board()[row][col].isupper() and row != self.rows-1):
+	    # Up-Right
+            if( (self.get_board()[row-2][col+1] == '-'
+                    or self.get_board()[row-2][col+1] in self.get_npc_pieces)
+                    and row > 1 
+                    and col < self.cols-1 ):
+                dst.append( (row-2, col+1) )
+            
+            # Up-Left
+            if( (self.get_board()[row-2][col-1] == '-'
+                    or self.get_board()[row-2][col-1] in self.get_npc_pieces)
+                    and row > 1 
+                    and col > 0 ):
+                dst.append( (row-2, col-1) )
+            
+            # Left-Up
+            if( (self.get_board()[row-1][col-2] == '-'
+                    or self.get_board()[row-1][col-2] in self.get_npc_pieces)
+                    and row > 0 
+                    and col > 1 ):
+                dst.append( (row-1, col-2) )
+            
+            # Left-Down
+                # Only on capture AND above 1/2 the board (senior)
+            if( (self.get_board()[row+1][col-2] in self.get_npc_pieces)
+                    and row < 3 
+                    and col > 1 ):
+                dst.append( (row+1, col-2) )
+
+            # Right-Up
+            if( (self.get_board()[row-1][col+2] == '-'
+                    or self.get_board()[row-1][col+2] in self.get_npc_pieces)
+                    and row > 0 
+                    and col < self.cols-2 ):
+                dst.append( (row-1, col+2) )
+
+            # Right-Down
+                # Only on capture AND above 1/2 the board (senior)
+            if( (self.get_board()[row+1][col+2] in self.get_npc_pieces)
+                    and row < 3 
+                    and col < self.cols-2 ):
+                dst.append( (row+1, col+2) )
+
+            # Down-Left
+                # Only on capture AND above 1/2 the board (senior)
+                if( (self.get_board()[row+2][col-1] in self.get_npc_pieces)
+                    and row < 3 
+                    and col > 0 ):
+                dst.append( (row+2, col-1) )
+            
+            # Down-Right
+                # Only on capture AND above 1/2 the board (senior)
+                if( (self.get_board()[row+2][col+1] in self.get_npc_pieces)
+                    and row < 3 
+                    and col < self.cols-1 ):
+                dst.append( (row+2, col+1) ) Forward movement
+        return dst
 
     def bishop_gen_moves(self, src):
         return None
