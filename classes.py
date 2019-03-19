@@ -298,8 +298,7 @@ class Board:
                 if(self.get_board()[row+1][col-2] == '-' or 
                         self.get_board()[row+1][col-2] in self.get_player_pieces()): 
                     dst.append( (row+1, col-2) )
-
-            
+  
             # Right-Up
             if(row > 2 and col < self.cols-2):
                 if(self.get_board()[row-1][col+2] in self.get_player_pieces()): 
@@ -325,5 +324,32 @@ class Board:
         return dst
 
     def bishop_gen_moves(self, src):
-        return None
+        row = src[0]
+        col = src[1]
+        dst = []
+        
+        # Player Move
+        if(self.get_board()[row][col].islower()):
+            # cur_pos = (1, 1)
+            cur_pos = src
+            cur_row = cur_pos[0]
+            cur_col = cur_pos[1]
+            # Up-Left
+            while(cur_pos[0] > 0 and cur_pos[1] > 0):
+                nxt_pos = cur_pos[cur_row--][cur_col--]
+                nxt_row = nxt_pos[0]
+                nxt_col = nxt_pos[1]
+                if(self.get_board()[nxt_row][nxt_col] == '-' or 
+                        self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
+                    dst.append( (nxt_row, nxt_col) )
+                elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()
+                        and cmp(src, cur_pos) ): # COMPARE TUPLES OF SRC AND CUR_POS
+                    dst.append( (
+
+
+
+        # NPC Move
+        elif(self.get_board()[row][col].isupper()):
+
+        return dst
 
