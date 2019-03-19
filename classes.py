@@ -182,6 +182,19 @@ class Board:
     def pawn_gen_moves(self, src):
         row = src[0]
         col = src[1]
+        # Player Moves
+        if(self.get_board[row][col].islower()):
+            # Forward movement
+            if(self.get_board[row-1][col] == '-'):
+                return (row-1, col)
+            elif(col>0 and self.get_board[row-1][col-1]
+                     in self.get_npc_pieces()):
+                return [row-1][col-1]
+            elif(col<self.cols-1 and self.get_board[row-1][col+1]
+                    in self.get_npc_pieces()):
+                return [row-1][col+1]
+        else:
+
         return (0,0)
 
     def horse_gen_moves(self, src):
