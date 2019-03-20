@@ -330,24 +330,46 @@ class Board:
         
         # Player Move
         if(self.get_board()[row][col].islower()):
-            # cur_pos = (1, 1)
             cur_pos = src
-            cur_row = cur_pos[0]
-            cur_col = cur_pos[1]
+            cur_row = row
+            cur_col = col
             # Up-Left
             while(cur_pos[0] > 0 and cur_pos[1] > 0):
-                nxt_pos = cur_pos[cur_row--][cur_col--]
+                nxt_pos = (cur_row--, cur_col--)
                 nxt_row = nxt_pos[0]
                 nxt_col = nxt_pos[1]
+                # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-' or 
                         self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
+                # Else if next piece is player's piece and cur_pos
+                # is not src, append cur_pos
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()
-                        and cmp(src, cur_pos) ): # COMPARE TUPLES OF SRC AND CUR_POS
-                    dst.append( (
-
-
-
+                        and src != cur_pos):
+                    dst.append(cur_pos)
+                # Update cur_pos to nxt_pos
+                cur_pos = nxt_pos
+                cur_row = nxt_row
+                cur_col = nxt_col
+            
+            # Up-Right
+            while(cur_pos[0] > 0 and cur_pos[1] < self.cols-1):
+                nxt_pos = (cur_row--, cur_col++)
+                nxt_row = nxt_pos[0]
+                nxt_col = nxt_pos[1]
+                # If next space empty or capture, append that space
+                if(self.get_board()[nxt_row][nxt_col] == '-' or 
+                        self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
+                    dst.append( (nxt_row, nxt_col) )
+                # Else if next piece is player's piece and cur_pos
+                # is not src, append cur_pos
+                elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()
+                        and src != cur_pos):
+                    dst.append(cur_pos)
+                # Update cur_pos to nxt_pos
+                cur_pos = nxt_pos
+                cur_row = nxt_pos[0]
+                cur_col = nxt_pos[1]
         # NPC Move
         elif(self.get_board()[row][col].isupper()):
 
