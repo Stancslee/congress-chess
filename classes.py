@@ -347,11 +347,8 @@ class Board:
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                # Else if next piece is player's piece and cur_pos
-                # is not src, append cur_pos
+                # Else if next piece is player's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
-                    if(src != cur_pos):
-                        dst.append(cur_pos)
                     done = True
                 # Update cur_pos to nxt_pos
                 if done:
@@ -370,19 +367,16 @@ class Board:
                 done = False
                 nxt_row -= 1
                 nxt_col += 1
-                nxt_pos = (nxt_row, nxt_pos)
+                nxt_pos = (nxt_row, nxt_col)
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                # Else if next piece is player's piece and cur_pos
-                # is not src, append cur_pos
+                # Else if next piece is player's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
-                    if(src != cur_pos):
-                        dst.append(cur_pos)
-                        done = True
+                    done = True
                 # Update cur_pos to nxt_pos
                 if done:
                     cur_pos = src
@@ -428,7 +422,7 @@ class Board:
                 done = False
                 nxt_row += 1
                 nxt_col += 1
-                nxt_pos = (nxt_row, nxt_pos)
+                nxt_pos = (nxt_row, nxt_col)
                 # If next space is a capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
@@ -463,11 +457,8 @@ class Board:
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                # Else if next piece is player's piece and cur_pos
-                # is not src, append cur_pos
+                # Else if next piece is npc's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
-                    if(src != cur_pos):
-                        dst.append(cur_pos)
                     done = True
                 # Update cur_pos to nxt_pos
                 if done:
@@ -486,18 +477,15 @@ class Board:
                 done = False
                 nxt_row += 1
                 nxt_col += 1
-                nxt_pos = (nxt_row, nxt_pos)
+                nxt_pos = (nxt_row, nxt_col)
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                # Else if next piece is player's piece and cur_pos
-                # is not src, append cur_pos
+                # Else if next piece is npc's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
-                    if(src != cur_pos):
-                        dst.append(cur_pos)
                     done = True
                 # Update cur_pos to nxt_pos
                 if done:
@@ -544,7 +532,7 @@ class Board:
                 done = False
                 nxt_row -= 1
                 nxt_col += 1
-                nxt_pos = (nxt_row, nxt_pos)
+                nxt_pos = (nxt_row, nxt_col)
                 # If next space is a capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     dst.append( (nxt_row, nxt_col) )
