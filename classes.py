@@ -105,17 +105,21 @@ class Board:
         return self.board
 
     def minimax(self, depth = 0, max_depth = 4, player_kings, npc_kings, legal_moves):
-        best_move = ''
         best_score = -9999
         # For each legal move in the game
-            # Make move
-            # Score = self.eval(move)
-            # If score > best_score
-                # best_move = move
+        for each move in legal_moves:
+            # Make move and save changes of board state
+            changes = self.make_move(move)
+            # Keep track of score after move is made
+            score = self.eval()
+            if(score > best_score):
+                best_move = move
             # Undo move
+            self.undo_move(move, changes)
         # Make best_move
+        self.make_move(best_move)
 
-    def min(self):
+    def min(self, depth, max_depth, player_kings, npc_kings, legal_moves):
         best = 9999
         # Check win/loss
         if(player_kings == 0):
@@ -127,15 +131,16 @@ class Board:
             return self.eval()
         # For each legal move
         for move in legal_moves:
-            # Make move
-            self.make_move(move)
-            score = max(depth+1, player_kings, npc_kings, legal_moves)
+            # Make move and save changes of board state
+            changes = self.make_move(move)
+            score = max(depth+1, max_depth, player_kings, npc_kings, legal_moves)
             if(score < best):
                 best = score
             # Undo move
+            self.undo_move(move, changes)
         return
 
-    def max(self, depth, player_kings, npc_kings, legal_moves):
+    def max(self, depth, max_depth, player_kings, npc_kings, legal_moves):
             best = -9999
             # Check win/loss
             if(player_kings == 0):
@@ -147,13 +152,13 @@ class Board:
                 return self.eval()
             # For each legal move
             for move in legal_moves:
-                # Make move
-                self.make_move(move)
-                score = min(depth+1, player_kings, npc_kings, legal_moves)
+                # Make move and save changes of board state
+                changes = self.make_move(move)
+                score = min(depth+1, max_depth, player_kings, npc_kings, legal_moves)
                 if(score > best):
                     best = score
                 # Undo Move
-
+                self.undo_move(move, changes)
         return
 
     def eval(self):
@@ -183,11 +188,13 @@ class Board:
                     val -= player_piece_values.get(self.get_board()[row][col])
         return val
 
+    # Applies move to board
     def make_move(self, cur_move):
         move = self.parse_move(cur_move)
         # Save src & dst values
         src = self.get_board()[ move[0][0] ][ move[0][1] ]
         dst = self.get_board()[ move[1][0] ][ move[1][1] ]
+        changes = (src, dst)
         # Make move
         self.get_board()[ move[1][0] ][ move[1][1] ] = src
         self.get_board()[ move[0][0] ][ move[0][1] ] = '-'
@@ -201,6 +208,26 @@ class Board:
             self.get_board()[ move[1][0] ][ move[1][1] ] = 'B'
         elif(src == 'h' and move[1][1] > 3):
             self.get_board()[ move[1][0] ][ move[1][1] ] = 'b'
+        return changes
+
+    def undo_move(self, cur_move, changes):
+        move = self.parse_move(cur_move)
+        self.get_board()[ move[0][0] ][ move[0][1] ] = changes[0]
+        self.get_board()[ move[1][0] ][ move[1][1] ] = changes[1]
+
+    # Currently just a minimax make_move function. NOT alpha-beta
+    # Returns BEST MOVE
+    def ab_pred_move(self, player_turn):
+        # Generate moves here every time?
+        legal_moves = self.generate_moves(player_turn)
+        best_move = legal_moves[0]
+        best_move_val = self.minimax(best_move)
+        for move in legal_moves:
+            move_val = self.minimax(move)
+            if(move_val > best_move_val):
+                best_move = move
+                best_move_val = move_val
+        return best_move
 
     def parse_move(self, move):
         col_map = {
