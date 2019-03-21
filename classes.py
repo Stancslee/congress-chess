@@ -104,7 +104,16 @@ class Board:
     def get_board(self):
         return self.board
 
-    def minimax(self, depth = 0, max_depth = 4, player_kings, npc_kings, legal_moves):
+    def minimax(self, move, depth=0, max_depth=0, player_kings, npc_kings, legal_moves):
+        depth+=1
+        if(depth == max_depth):
+            val = self.eval()
+            return val
+        # Player's turn (MIN)
+        if(depth % 2 == 0):
+            return self.min(
+            # CONTINUE
+        """
         best_score = -9999
         # For each legal move in the game
         for each move in legal_moves:
@@ -118,8 +127,9 @@ class Board:
             self.undo_move(move, changes)
         # Make best_move
         self.make_move(best_move)
+        """
 
-    def min(self, depth, max_depth, player_kings, npc_kings, legal_moves):
+    def min(self, move, depth, max_depth, player_kings, npc_kings, legal_moves):
         best = 9999
         # Check win/loss
         if(player_kings == 0):
@@ -140,7 +150,7 @@ class Board:
             self.undo_move(move, changes)
         return
 
-    def max(self, depth, max_depth, player_kings, npc_kings, legal_moves):
+    def max(self, move, depth, max_depth, player_kings, npc_kings, legal_moves):
             best = -9999
             # Check win/loss
             if(player_kings == 0):
@@ -217,13 +227,15 @@ class Board:
 
     # Currently just a minimax make_move function. NOT alpha-beta
     # Returns BEST MOVE
-    def ab_pred_move(self, player_turn):
+    def ab_pred_move(self, depth, max_depth, player_kings, npc_kings):
         # Generate moves here every time?
         legal_moves = self.generate_moves(player_turn)
+        # Set default best_move = first legal move
         best_move = legal_moves[0]
-        best_move_val = self.minimax(best_move)
+        # Perform minimax on all legal moves (recursive)
         for move in legal_moves:
-            move_val = self.minimax(move)
+            move_val = self.minimax(move, 0, max_depth, player_kings, npc_kings, legal_moves)
+            # somehow keep track of first move's value....
             if(move_val > best_move_val):
                 best_move = move
                 best_move_val = move_val
