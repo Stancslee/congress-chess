@@ -112,6 +112,16 @@ class Board:
         # Make move
         self.get_board()[ move[1][0] ][ move[1][1] ] = src
         self.get_board()[ move[0][0] ][ move[0][1] ] = '-'
+        # Change piece to horse if on left half of board
+        if(src == 'B' and move[1][1] < 4):
+            self.get_board()[ move[1][0] ][ move[1][1] ] = 'H'
+        elif(src == 'b'  and move[1][1] < 4):
+            self.get_board()[ move[1][0] ][ move[1][1] ] = 'h'
+        # Change piece to bishop of on right half of board
+        elif(src == 'H' and move[1][1] > 3):
+            self.get_board()[ move[1][0] ][ move[1][1] ] = 'B'
+        elif(src == 'h' and move[1][1] > 3):
+            self.get_board()[ move[1][0] ][ move[1][1] ] = 'b'
 
     def parse_move(self, move):
         col_map = {
