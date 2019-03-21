@@ -354,6 +354,9 @@ class Board:
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
                     print('\tThis is a valid move')
+                    # BOUNDARY CHECK FOR EVERY LOOP
+                    if(nxt_row == 0 or nxt_col == 0):
+                        done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     print('\tThis is a valid move')
@@ -368,8 +371,7 @@ class Board:
                     cur_col = col
                     nxt_row = row
                     nxt_col = col
-                    print('...Resetting position')
-                    
+                    print('...Resetting position ({}, {})'.format(cur_row, cur_col))
                     break
                 cur_pos = nxt_pos
                 cur_row = nxt_row
@@ -389,6 +391,8 @@ class Board:
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
                     print('\tThis is a valid move')
+                    if(nxt_row == 0 or nxt_col == self.cols-1):
+                        done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     print('\tThis is a valid move')
@@ -428,6 +432,8 @@ class Board:
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     done = True
+                if(nxt_row == self.rows-1 or nxt_col == 0):
+                    done = True
                 # Update cur_pos to nxt_pos
                 if done:
                     cur_pos = src
@@ -460,6 +466,9 @@ class Board:
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     done = True
+                # BOUNDARY CHECK FOR ALL BACKWARDS CAPTURE LOOP
+                if(nxt_row == self.rows-1 or nxt_col == self.cols-1):
+                    done = True
                 # Update cur_pos to nxt_pos
                 if done:
                     cur_pos = src
@@ -484,6 +493,8 @@ class Board:
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
+                    if(nxt_row == self.rows-1 or nxt_col == 0):
+                        done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
@@ -511,6 +522,8 @@ class Board:
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
+                    if(nxt_row == self.rows-1  or nxt_col == self.cols-1):
+                        done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
@@ -544,6 +557,8 @@ class Board:
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     done = True
+                if(nxt_row == 0 or nxt_col == 0):
+                    done = True
                 # Update cur_pos to nxt_pos
                 if done:
                     cur_pos = src
@@ -570,6 +585,8 @@ class Board:
                 # Else if next piece is npc's piece,
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
+                    done = True
+                if(nxt_row == 0 or nxt_col == self.cols-1):
                     done = True
                 # Update cur_pos to nxt_pos
                 if done:
