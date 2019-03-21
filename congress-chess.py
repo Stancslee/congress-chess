@@ -34,6 +34,14 @@ def main():
         if(player_turn):
             # Print Legal Player Moves
             legal_moves = board.generate_moves(player_turn)
+            # Opponent wins of no playable moves
+            if not legal_moves:
+                game_over = True
+                print('-----------------')
+                print('    GAME OVER')
+                print('  OPPONENT WINS')
+                print('-----------------')
+                break
             print(legal_moves)
 
             # Player makes move
@@ -46,6 +54,14 @@ def main():
         else:
             # NPC Move Generator (returns list of legal moves)
             legal_moves = board.generate_moves(player_turn)
+            # Player wins if no playable moves
+            if not legal_moves:
+                game_over = True
+                print('-----------------')
+                print('    GAME OVER')
+                print('   PLAYER WINS')
+                print('-----------------')
+                break
             print(legal_moves)
 
             # NPC makes move
