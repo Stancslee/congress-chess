@@ -86,7 +86,8 @@ def main():
                 move = input('Please enter a valid move: ')
             """
             move = random.choice(legal_moves)
-            print('Computer move: %s\n' % move)
+            move_trans = board.translate_move(move)
+            print('Computer move: %s (%s)\n' % (move, move_trans))
             board.make_move(move)
             player_kings = board.update_kings(player_turn)
             if(player_kings == 0):

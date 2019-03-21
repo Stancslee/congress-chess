@@ -160,6 +160,13 @@ class Board:
         s += str(self.rows - move[1][0])
         return s
 
+    def translate_move(self, move):
+        src_num = (self.cols-1) - int(move[1])
+        dst_num = (self.cols-1) - int(move[3])
+        trans_move = move[0] + str(src_num) + move[2] + str(dst_num)
+        return trans_move
+
+
     def update_kings(self, player_turn):
         player_kings = 0
         npc_kings = 0
