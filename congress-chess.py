@@ -7,6 +7,7 @@ Congress Chess
 from classes import (
     Board
 )
+import random
 
 def main():
     board = Board()
@@ -78,9 +79,13 @@ def main():
             print(legal_moves)
 
             # NPC makes move
+            """
+            # Optional Player 2 Input
             move = input('Enter your move: ')
             while(move not in legal_moves):
                 move = input('Please enter a valid move: ')
+            """
+            move = random.choice(legal_moves)
             print('Computer move: %s\n' % move)
             board.make_move(move)
             player_kings = board.update_kings(player_turn)

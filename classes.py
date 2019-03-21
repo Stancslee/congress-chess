@@ -166,13 +166,11 @@ class Board:
         # If player makes move, update NPC Kings
         if(player_turn):
             for col in self.get_board()[0]:
-                print(col)
                 if(col == 'K'):
                     npc_kings += 1
             return npc_kings
         else:
             for col in self.get_board()[5]:
-                print(col)
                 if(col == 'k'):
                     player_kings += 1
             return player_kings
@@ -374,19 +372,22 @@ class Board:
                 nxt_col -= 1
                 nxt_pos = (nxt_row, nxt_col)
 
+                """
+                POSITION CHECKING
                 print('\n...Checking. ({}, {}) -> ({}, {})'.format(cur_row, cur_col, nxt_row, nxt_col))
                 print('Checking new bishop position. row: {}, col: {}'.format(nxt_row, nxt_col))
-                
+                """
+
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                     # BOUNDARY CHECK FOR EVERY LOOP
                     if(nxt_row == 0 or nxt_col == 0):
                         done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                     done = True
                 # Else if next piece is player's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
@@ -398,7 +399,7 @@ class Board:
                     cur_col = col
                     nxt_row = row
                     nxt_col = col
-                    print('...Resetting position ({}, {})'.format(cur_row, cur_col))
+                    # print('...Resetting position ({}, {})'.format(cur_row, cur_col))
                     break
                 cur_pos = nxt_pos
                 cur_row = nxt_row
@@ -411,18 +412,21 @@ class Board:
                 nxt_col += 1
                 nxt_pos = (nxt_row, nxt_col)
 
+                """
+                POSITION CHECKING
                 print('\n...Checking. ({}, {}) -> ({}, {})'.format(cur_row, cur_col, nxt_row, nxt_col))
                 print('Checking new bishop position. row: {}, col: {}'.format(nxt_row, nxt_col))
+                """
 
                 # If next space empty or capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] == '-'):
                     dst.append( (nxt_row, nxt_col) )
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                     if(nxt_row == 0 or nxt_col == self.cols-1):
                         done = True
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                     done = True
                 # Else if next piece is player's piece, done
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
@@ -447,14 +451,17 @@ class Board:
                 nxt_col -= 1
                 nxt_pos = (nxt_row, nxt_col)
 
+                """
+                POSITION CHECKING
                 print('\n...Checking. ({}, {}) -> ({}, {})'.format(cur_row, cur_col, nxt_row, nxt_col))
                 print('Checking new bishop position. row: {}, col: {}'.format(nxt_row, nxt_col))
+                """
 
                 # If next space is a capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                 # Else if next piece is player's piece,
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
@@ -481,14 +488,17 @@ class Board:
                 nxt_col += 1
                 nxt_pos = (nxt_row, nxt_col)
 
+                """
+                POSITION CHECKING
                 print('\n...Checking. ({}, {}) -> ({}, {})'.format(cur_row, cur_col, nxt_row, nxt_col))
                 print('Checking new bishop position. row: {}, col: {}'.format(nxt_row, nxt_col))
+                """
 
                 # If next space is a capture, append that space
                 if(self.get_board()[nxt_row][nxt_col] in self.get_npc_pieces()):
                     dst.append( (nxt_row, nxt_col) )
                     done = True
-                    print('\tThis is a valid move')
+                    # print('\tThis is a valid move')
                 # Else if next piece is player's piece,
                 # break loop and do not append anything
                 elif(self.get_board()[nxt_row][nxt_col] in self.get_player_pieces()):
