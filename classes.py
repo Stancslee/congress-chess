@@ -104,13 +104,56 @@ class Board:
     def get_board(self):
         return self.board
 
-    def minimax(self):
-        return
+    def minimax(self, depth = 0, max_depth = 4, player_kings, npc_kings, legal_moves):
+        best_move = ''
+        best_score = -9999
+        # For each legal move in the game
+            # Make move
+            # Score = self.eval(move)
+            # If score > best_score
+                # best_move = move
+            # Undo move
+        # Make best_move
 
     def min(self):
+        best = 9999
+        # Check win/loss
+        if(player_kings == 0):
+            return 5000
+        if(npc_kings == 0):
+            return -5000
+        # Return node value at max depth
+        if(depth == max_depth):
+            return self.eval()
+        # For each legal move
+        for move in legal_moves:
+            # Make move
+            self.make_move(move)
+            score = max(depth+1, player_kings, npc_kings, legal_moves)
+            if(score < best):
+                best = score
+            # Undo move
         return
 
-    def max(self):
+    def max(self, depth, player_kings, npc_kings, legal_moves):
+            best = -9999
+            # Check win/loss
+            if(player_kings == 0):
+                return 5000
+            if(npc_kings == 0):
+                return -5000
+            # Return node value at max depth
+            if(depth == max_depth):
+                return self.eval()
+            # For each legal move
+            for move in legal_moves:
+                # Make move
+                self.make_move(move)
+                score = min(depth+1, player_kings, npc_kings, legal_moves)
+                if(score > best):
+                    best = score
+                # Undo Move
+
         return
 
     def eval(self):
@@ -131,9 +174,11 @@ class Board:
             for col in range(self.cols):
                 if(self.get_board()[row][col] in npc_piece_values):
                     val += npc_piece_values.get(self.get_board()[row][col])
+                    """
+                    PRINT PIECE VALUES AND TOTAL VALUES
                     print('Piece: %s; Val: %d' % (self.get_board()[row][col], npc_piece_values.get(self.get_board()[row][col])))
                     print('Total NPC Val: %d' % val)
-
+                    """
                 elif(self.get_board()[row][col] in player_piece_values):
                     val -= player_piece_values.get(self.get_board()[row][col])
         return val
