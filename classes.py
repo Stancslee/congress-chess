@@ -324,12 +324,17 @@ class Board:
         return dst
 
     def bishop_gen_moves(self, src):
+        # Source position
         row = src[0]
         col = src[1]
         dst = []
+
+        # Current checking position (starts at source)
         cur_pos = src
         cur_row = row
         cur_col = col
+
+        # Next checking position
         nxt_row = row
         nxt_col = col
 
