@@ -77,7 +77,8 @@ def main():
                 print('-------------------------------------')
                 break
             print(legal_moves)
-
+            # NPC Evaluates Moves
+            val = board.eval()
             # NPC makes move
             """
             # Optional Player 2 Input
@@ -104,6 +105,8 @@ def main():
             # Compare list of legal moves to user input
         if(move == 'stop'):
             game_over = True
+
+
 
 if __name__ == "__main__":
     main()

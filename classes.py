@@ -104,6 +104,40 @@ class Board:
     def get_board(self):
         return self.board
 
+    def minimax(self):
+        return
+
+    def min(self):
+        return
+
+    def max(self):
+        return
+
+    def eval(self):
+        val = 0
+        npc_piece_values = {
+                'P': 1,
+                'H': 3,
+                'B': 3,
+                'K': 5
+                }
+        player_piece_values = {
+                'p': 1,
+                'h': 3,
+                'b': 3,
+                'k': 5
+                }
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if(self.get_board()[row][col] in npc_piece_values):
+                    val += npc_piece_values.get(self.get_board()[row][col])
+                    print('Piece: %s; Val: %d' % (self.get_board()[row][col], npc_piece_values.get(self.get_board()[row][col])))
+                    print('Total NPC Val: %d' % val)
+
+                elif(self.get_board()[row][col] in player_piece_values):
+                    val -= player_piece_values.get(self.get_board()[row][col])
+        return val
+
     def make_move(self, cur_move):
         move = self.parse_move(cur_move)
         # Save src & dst values
@@ -165,7 +199,6 @@ class Board:
         dst_num = (self.cols-1) - int(move[3])
         trans_move = move[0] + str(src_num) + move[2] + str(dst_num)
         return trans_move
-
 
     def update_kings(self, player_turn):
         player_kings = 0
