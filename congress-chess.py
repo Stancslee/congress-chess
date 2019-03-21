@@ -14,6 +14,8 @@ def main():
     choice = True
     turn_choice = ''
     move = ''
+    player_kings = 2
+    npc_kings = 2
     game_over = False
 
     while(not game_over):
@@ -37,10 +39,11 @@ def main():
             # Opponent wins of no playable moves
             if not legal_moves:
                 game_over = True
-                print('-----------------')
-                print('    GAME OVER')
-                print('  OPPONENT WINS')
-                print('-----------------')
+                print('-----------------------------------')
+                print('             GAME OVER')
+                print('  NO PLAYER LEGAL MOVES REMAINING')
+                print('           OPPONENT WINS')
+                print('-----------------------------------')
                 break
             print(legal_moves)
 
@@ -50,6 +53,15 @@ def main():
                 move = input('Please enter a valid move: ')
             print('Your move: %s\n' % move)
             board.make_move(move)
+            npc_kings = board.update_kings(player_turn)
+            if(npc_kings == 0):
+                game_over = True
+                print('-------------------------------')
+                print('           GAME OVER')
+                print('  ALL OPPONENT KINGS CAPTURED')
+                print('          PLAYER WINS')
+                print('-------------------------------')
+                break
             player_turn = False
         else:
             # NPC Move Generator (returns list of legal moves)
@@ -57,10 +69,11 @@ def main():
             # Player wins if no playable moves
             if not legal_moves:
                 game_over = True
-                print('-----------------')
-                print('    GAME OVER')
-                print('   PLAYER WINS')
-                print('-----------------')
+                print('-------------------------------------')
+                print('              GAME OVER')
+                print('  NO OPPONENT LEGAL MOVES REMAINING')
+                print('             PLAYER WINS')
+                print('-------------------------------------')
                 break
             print(legal_moves)
 
@@ -70,6 +83,15 @@ def main():
                 move = input('Please enter a valid move: ')
             print('Computer move: %s\n' % move)
             board.make_move(move)
+            player_kings = board.update_kings(player_turn)
+            if(player_kings == 0):
+                game_over = True
+                print('-----------------------------')
+                print('          GAME OVER')
+                print('  ALL PLAYER KINGS CAPTURED')
+                print('        OPPONENT WINS')
+                print('-----------------------------')
+                break
             player_turn = True
 
         # Check legality of move

@@ -160,6 +160,23 @@ class Board:
         s += str(self.rows - move[1][0])
         return s
 
+    def update_kings(self, player_turn):
+        player_kings = 0
+        npc_kings = 0
+        # If player makes move, update NPC Kings
+        if(player_turn):
+            for col in self.get_board()[0]:
+                print(col)
+                if(col == 'K'):
+                    npc_kings += 1
+            return npc_kings
+        else:
+            for col in self.get_board()[5]:
+                print(col)
+                if(col == 'k'):
+                    player_kings += 1
+            return player_kings
+
     def get_npc_pieces(self):
         return ['H', 'K', 'B', 'P']
 
