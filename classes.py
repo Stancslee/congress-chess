@@ -368,6 +368,8 @@ class Board:
                     cur_col = col
                     nxt_row = row
                     nxt_col = col
+                    print('...Resetting position')
+                    
                     break
                 cur_pos = nxt_pos
                 cur_row = nxt_row
