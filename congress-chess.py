@@ -87,10 +87,10 @@ def main():
                 move = input('Please enter a valid move: ')
             """
             # move = random.choice(legal_moves) RANDOM MOVES
-            best_move = ab_red_move(0, 4, player_kings, npc_kings)
+            best_move = board.minimax(player_kings, npc_kings, player_turn)
             best_move_trans = board.translate_move(best_move)
             print('Computer move: %s (%s)\n' % (best_move, best_move_trans))
-            board.make_move(best_move)
+            # board.make_move(best_move)
             player_kings = board.update_kings(player_turn)
             if(player_kings == 0):
                 game_over = True
