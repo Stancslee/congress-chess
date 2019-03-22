@@ -1,7 +1,9 @@
 """
 Stanley Lee
+Dr. Scott Gordon
 CSC 180
 Congress Chess
+Program Name: user.sentience(0)
 """
 
 from classes import (

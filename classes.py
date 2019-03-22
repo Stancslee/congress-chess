@@ -1,7 +1,9 @@
 """
 Stanley Lee
+Dr. Scott Gordon
 CSC 180
 Congress Chess
+Program Name: user.sentience(0)
 """
 
 class Board:
@@ -244,7 +246,7 @@ class Board:
         char = []
         for c in move:
             char.append(c)
-        src = (self.rows - int(char[1]), col_map.get(char[0]))
+        src = (self.rows - int(char[1]), col_map.get(char[0])) # INDEX OUT OF BOUNDS
         dst = (self.rows - int(char[3]), col_map.get(char[2]))
         return [src, dst]
 
