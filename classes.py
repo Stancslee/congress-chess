@@ -137,7 +137,7 @@ class Board:
         # Return node value at max depth
         if(depth == max_depth):
             print('max depth: %d; val: %d' % (max_depth, self.eval()))
-            return self.eval()
+            return (self.eval() + depth)
         # For each legal move
         legal_moves = self.generate_moves(player_turn)
         for move in legal_moves:
@@ -162,7 +162,7 @@ class Board:
         # Return node value at max depth
         if(depth == max_depth):
             print('max depth: %d; val: %d' % (max_depth, self.eval()))
-            return self.eval()
+            return (self.eval() - depth)
         # For each legal move
         legal_moves = self.generate_moves(player_turn)
         for move in legal_moves:
