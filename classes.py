@@ -18,7 +18,6 @@ class Board:
         board = [ (['-'] * self.cols) for row in range(self.rows) ]
 
         # Initialize NPC Pieces
-        '''
         board[0][0] = 'H'
         board[0][1] = 'H'
         board[0][3] = 'K'
@@ -27,14 +26,7 @@ class Board:
         board[0][7] = 'B'
         for x in range(6):
             board[1][x+1] = 'P'
-        '''
-        board[0][0] = 'K'
-        board[4][0] = 'H'
-        board[4][2] = 'H'
-        board[5][2] = 'H'
-
         # Initialize Player Pieces
-        '''
         board[5][0] = 'h'
         board[5][1] = 'h'
         board[5][3] = 'k'
@@ -43,10 +35,6 @@ class Board:
         board[5][7] = 'b'
         for x in range(6):
             board[4][x+1] = 'p'
-        '''
-        board[0][6] = 'p'
-        board[1][5] = 'b'
-        board[5][6] = 'k'
         return board
 
     def print_board(self):
@@ -121,14 +109,17 @@ class Board:
         best_score = -9999
         best_move = ''
         depth = 0
+        max_depth = 3
         # For each legal move in the game
         legal_moves = self.generate_moves(player_turn)
+        if(len(legal_moves) < max_depth):
+            max_depth = len(legal_moves)
         for move in legal_moves:
             print(move)
             # Make move and save changes of board state
             changes = self.make_move(move)
             # Keep track of score after move is made
-            score = self.max(depth+1, 3, player_kings, npc_kings, not player_turn)
+            score = self.max(depth+1, max_depth, player_kings, npc_kings, not player_turn)
             if(score > best_score):
                 best_score = score
                 best_move = move
@@ -185,6 +176,8 @@ class Board:
             # Make move and save changes of board state
             changes = self.make_move(move)
             score = self.min(depth+1, max_depth, player_kings, npc_kings, not player_turn)
+            print(move)
+            print('score = %d' % score)
             if(score > best_score):
                 best_score = score
             # Undo Move
@@ -209,11 +202,11 @@ class Board:
             for col in range(self.cols):
                 if(self.get_board()[row][col] in npc_piece_values):
                     val += npc_piece_values.get(self.get_board()[row][col])
-                    """
-                    PRINT PIECE VALUES AND TOTAL VALUES
+                    '''
+                    # PRINT PIECE VALUES AND TOTAL VALUES
                     print('Piece: %s; Val: %d' % (self.get_board()[row][col], npc_piece_values.get(self.get_board()[row][col])))
                     print('Total NPC Val: %d' % val)
-                    """
+                    '''
                 elif(self.get_board()[row][col] in player_piece_values):
                     val -= player_piece_values.get(self.get_board()[row][col])
         return val
