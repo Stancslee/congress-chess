@@ -18,6 +18,7 @@ class Board:
         board = [ (['-'] * self.cols) for row in range(self.rows) ]
 
         # Initialize NPC Pieces
+        '''
         board[0][0] = 'H'
         board[0][1] = 'H'
         board[0][3] = 'K'
@@ -26,8 +27,14 @@ class Board:
         board[0][7] = 'B'
         for x in range(6):
             board[1][x+1] = 'P'
+        '''
+        board[0][0] = 'K'
+        board[4][0] = 'H'
+        board[4][2] = 'H'
+        board[5][2] = 'H'
 
         # Initialize Player Pieces
+        '''
         board[5][0] = 'h'
         board[5][1] = 'h'
         board[5][3] = 'k'
@@ -36,6 +43,10 @@ class Board:
         board[5][7] = 'b'
         for x in range(6):
             board[4][x+1] = 'p'
+        '''
+        board[0][6] = 'p'
+        board[1][5] = 'b'
+        board[5][6] = 'k'
         return board
 
     def print_board(self):
@@ -117,14 +128,17 @@ class Board:
             # Make move and save changes of board state
             changes = self.make_move(move)
             # Keep track of score after move is made
-            score = self.min(depth+1, 3, player_kings, npc_kings, not player_turn)
+            score = self.max(depth+1, 3, player_kings, npc_kings, not player_turn)
             if(score > best_score):
                 best_score = score
                 best_move = move
             # Undo move
             self.undo_move(move, changes)
         # Make best_move
-        self.make_move(best_move)
+        if(best_move):
+            print('Best Move:')
+            print(best_move)
+            self.make_move(best_move)
         return best_move
 
     def min(self, depth, max_depth, player_kings, npc_kings, player_turn):

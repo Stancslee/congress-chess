@@ -90,17 +90,29 @@ def main():
             """
             # move = random.choice(legal_moves) RANDOM MOVES
             best_move = board.minimax(player_kings, npc_kings, player_turn)
-            best_move_trans = board.translate_move(best_move)
-            print('Computer move: %s (%s)\n' % (best_move, best_move_trans))
-            # board.make_move(best_move)
-            player_kings = board.update_kings(player_turn)
-            if(player_kings == 0):
+            print(legal_moves)
+            print('Best Move:')
+            print(best_move)
+            if best_move:
+                best_move_trans = board.translate_move(best_move)
+                print('Computer move: %s (%s)\n' % (best_move, best_move_trans))
+                # board.make_move(best_move)
+                player_kings = board.update_kings(player_turn)
+                if(player_kings == 0):
+                    game_over = True
+                    print('-----------------------------')
+                    print('          GAME OVER')
+                    print('  ALL PLAYER KINGS CAPTURED')
+                    print('        OPPONENT WINS')
+                    print('-----------------------------')
+                    break
+            else:
                 game_over = True
-                print('-----------------------------')
-                print('          GAME OVER')
-                print('  ALL PLAYER KINGS CAPTURED')
-                print('        OPPONENT WINS')
-                print('-----------------------------')
+                print('-------------------------------------')
+                print('              GAME OVER')
+                print('  NO OPPONENT LEGAL MOVES REMAINING')
+                print('             PLAYER WINS')
+                print('-------------------------------------')
                 break
             player_turn = True
 
