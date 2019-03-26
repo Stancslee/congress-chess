@@ -42,6 +42,7 @@ def main():
             # Opponent wins of no playable moves
             if not legal_moves:
                 game_over = True
+                board.print_board()
                 print('-----------------------------------')
                 print('             GAME OVER')
                 print('  NO PLAYER LEGAL MOVES REMAINING')
@@ -59,6 +60,7 @@ def main():
             npc_kings = board.update_kings(player_turn)
             if(npc_kings == 0):
                 game_over = True
+                board.print_board()
                 print('-------------------------------')
                 print('           GAME OVER')
                 print('  ALL OPPONENT KINGS CAPTURED')
@@ -72,6 +74,7 @@ def main():
             # Player wins if no playable moves
             if not legal_moves:
                 game_over = True
+                board.print_board()
                 print('-------------------------------------')
                 print('              GAME OVER')
                 print('  NO OPPONENT LEGAL MOVES REMAINING')
@@ -100,6 +103,7 @@ def main():
                 player_kings = board.update_kings(player_turn)
                 if(player_kings == 0):
                     game_over = True
+                    board.print_board()
                     print('-----------------------------')
                     print('          GAME OVER')
                     print('  ALL PLAYER KINGS CAPTURED')
@@ -108,6 +112,7 @@ def main():
                     break
             else:
                 game_over = True
+                board.print_board()
                 print('-------------------------------------')
                 print('              GAME OVER')
                 print('  NO OPPONENT LEGAL MOVES REMAINING')

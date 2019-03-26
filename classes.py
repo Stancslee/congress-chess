@@ -112,14 +112,16 @@ class Board:
         max_depth = 3
         # For each legal move in the game
         legal_moves = self.generate_moves(player_turn)
+        '''
         if(len(legal_moves) < max_depth):
             max_depth = len(legal_moves)
+        '''
         for move in legal_moves:
             print(move)
             # Make move and save changes of board state
             changes = self.make_move(move)
             # Keep track of score after move is made
-            score = self.max(depth+1, max_depth, player_kings, npc_kings, not player_turn)
+            score = self.min(depth+1, max_depth, player_kings, npc_kings, not player_turn)
             if(score > best_score):
                 best_score = score
                 best_move = move
