@@ -104,7 +104,7 @@ class Board:
 
     def get_board(self):
         return self.board
-
+    '''
     def minimax(self, player_kings, npc_kings, player_turn):
         best_score = -9999
         best_move = ''
@@ -113,8 +113,10 @@ class Board:
         # For each legal move in the game
         legal_moves = self.generate_moves(player_turn)
         '''
+        '''
         if(len(legal_moves) < max_depth):
             max_depth = len(legal_moves)
+        '''
         '''
         for move in legal_moves:
             print(move)
@@ -160,6 +162,89 @@ class Board:
         return best_score
 
     def max(self, depth, max_depth, player_kings, npc_kings, player_turn):
+        print('...Calculating Max')
+        print('depth = %d' % depth)
+        best_score = -9999
+        # Check win/loss
+        if(player_kings == 0):
+            return 5000
+        if(npc_kings == 0):
+            return -5000
+        # Return node value at max depth
+        if(depth == max_depth):
+            print('max depth: %d; val: %d' % (max_depth, self.eval()))
+            return (self.eval() - depth)
+        # For each legal move
+        legal_moves = self.generate_moves(player_turn)
+        for move in legal_moves:
+            # Make move and save changes of board state
+            changes = self.make_move(move)
+            score = self.min(depth+1, max_depth, player_kings, npc_kings, not player_turn)
+            print(move)
+            print('score = %d' % score)
+            if(score > best_score):
+                best_score = score
+            # Undo Move
+            self.undo_move(move, changes)
+        return best_score
+    '''
+    def minimax(self, player_kings, npc_kings, player_turn):
+        # best_score = -9999
+        alpha = float("-inf")
+        beta = float("inf")
+        best_move = ''
+        depth = 0
+        max_depth = 3
+        # For each legal move in the game
+        legal_moves = self.generate_moves(player_turn)
+        '''
+        if(len(legal_moves) < max_depth):
+            max_depth = len(legal_moves)
+        '''
+        for move in legal_moves:
+            print(move)
+            # Make move and save changes of board state
+            changes = self.make_move(move)
+            # Keep track of score after move is made
+            score = self.min(depth+1, alpha, beta, max_depth, player_kings, npc_kings, not player_turn)
+            if(score > alpha):
+                alpha_score = score
+                best_move = move
+            # Undo move
+            self.undo_move(move, changes)
+        # Make best_move
+        if(best_move):
+            print('Best Move:')
+            print(best_move)
+            self.make_move(best_move)
+        return best_move
+
+    def min(self, depth, max_depth, alpha, beta, player_kings, npc_kings, player_turn):
+        print('...Calculating Min')
+        print('depth = %d' % depth)
+        # best_score = 9999
+        # Check win/loss
+        if(player_kings == 0):
+            return 5000
+        if(npc_kings == 0):
+            return -5000
+        # Return node value at max depth
+        if(depth == max_depth):
+            print('max depth: %d; val: %d' % (max_depth, self.eval()))
+            return (self.eval() + depth)
+        # For each legal move
+        legal_moves = self.generate_moves(player_turn)
+        for move in legal_moves:
+            # Make move and save changes of board state
+            changes = self.make_move(move)
+            score = self.max(depth+1, max_depth, player_kings, npc_kings, not player_turn)
+            if(score < best_score):
+                best_score = score
+            # Undo move
+            self.undo_move(move, changes)
+        return best_score
+
+    def max(self, depth, max_depth, alpha, beta, player_kings, npc_kings, player_turn):
         print('...Calculating Max')
         print('depth = %d' % depth)
         best_score = -9999
